@@ -3,14 +3,37 @@ public class Main {
 
         StudentManager manager = new StudentManager();
 
-        Person s1 = new Student("John", 20, 1);
-        Person s2 = new Student("Alice", 22, 2);
-        Person t1 = new Teacher("Mr. Smith", 40, "Math");
+        Course java = new Course("Java Programming");
+        Course db = new Course("Database Systems");
 
-        manager.addPerson(s1);
-        manager.addPerson(s2);
-        manager.addPerson(t1);
+        manager.addCourse(java);
+        manager.addCourse(db);
 
-        manager.viewAll();
+        // ✅ VALID STUDENT
+        try {
+            Student s1 = new Student("John", 20, 1);
+            manager.addPerson(s1);
+
+            manager.enroll(s1, java);
+            manager.enroll(s1, db);
+
+        } catch (RuntimeException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        // ❌ INVALID STUDENT (NEGATIVE ID)
+        try {
+            Student s2 = new Student("Alice", 22, -5); // ❌ error
+            manager.addPerson(s2);
+
+        } catch (RuntimeException e) {
+            System.out.println("INVALID ID ERROR: " + e.getMessage());
+        }
+
+        System.out.println("\n--- PEOPLE ---");
+        manager.viewPeople();
+
+        manager.viewCourses();
+        manager.viewEnrollments();
     }
 }
