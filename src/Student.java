@@ -1,37 +1,47 @@
-import java.util.*;
-
 class Student extends Person {
     private int studentId;
-    private List<Course> courses = new ArrayList<>();
+    private Course requestedCourse;
+    private double marks;
 
     public Student(String name, int age, int studentId) {
         super(name, age);
 
-        // ❌ INVALID ID CHECK (IMPORTANT FOR YOUR TASK)
         if (studentId <= 0) {
-            throw new RuntimeException("Student ID cannot be negative or zero!");
+            throw new RuntimeException("Student ID must be greater than 0!");
         }
 
         this.studentId = studentId;
+        this.marks = 0;
     }
 
     public int getStudentId() {
         return studentId;
     }
 
-    public void addCourse(Course course) {
-        courses.add(course);
+    public Course getRequestedCourse() {
+        return requestedCourse;
+    }
+
+    public void setRequestedCourse(Course requestedCourse) {
+        this.requestedCourse = requestedCourse;
+    }
+
+    public double getMarks() {
+        return marks;
+    }
+
+    public void setMarks(double marks) {
+        if (marks < 0 || marks > 100) {
+            throw new RuntimeException("Marks must be between 0 and 100!");
+        }
+        this.marks = marks;
     }
 
     @Override
     public void display() {
-        System.out.println("Student ID: " + studentId +
-                ", Name: " + name +
-                ", Age: " + age);
+        String course = (requestedCourse != null) ? requestedCourse.getCourseName() : "None";
+        String status = (marks >= 50) ? "PASS" : "FAIL";
 
-        System.out.println("Courses:");
-        for (Course c : courses) {
-            System.out.println(" - " + c.getCourseName());
-        }
+        System.out.println(studentId + "," + name + "," + age + "," + course + "," + marks + "," + status);
     }
 }
