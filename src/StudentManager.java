@@ -14,12 +14,11 @@ class StudentManager {
         loadCourses();
     }
 
-    // ================= FILE PATHS =================
     private final String STUDENT_FILE = "students.txt";
     private final String TEACHER_FILE = "teachers.txt";
     private final String COURSE_FILE = "courses.txt";
 
-    // ================= SAVE ALL =================
+
     private void saveStudents() {
         try (PrintWriter pw = new PrintWriter(new FileWriter(STUDENT_FILE))) {
             for (Student s : students) {
@@ -58,7 +57,7 @@ class StudentManager {
         }
     }
 
-    // ================= LOAD =================
+
     private void loadStudents() {
         try (BufferedReader br = new BufferedReader(new FileReader(STUDENT_FILE))) {
             String line;
@@ -69,7 +68,7 @@ class StudentManager {
                 students.add(s);
             }
         } catch (Exception e) {
-            // file may not exist first time
+
         }
     }
 
@@ -94,7 +93,6 @@ class StudentManager {
         } catch (Exception e) {}
     }
 
-    // ================= OPERATIONS =================
     public void addStudent(Student s) {
         students.add(s);
         saveStudents();
