@@ -11,10 +11,12 @@ class Teacher extends Person {
         this.subject = subject;
     }
 
+    public String getSubject() {
+        return subject;
+    }
+
     @Override
     public void display() {
-        System.out.println("Teacher Name: " + name +
-                ", Age: " + age +
-                ", Subject: " + subject);
+        System.out.println(name + "," + age + "," + subject);
     }
 }

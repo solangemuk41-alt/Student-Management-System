@@ -1,39 +1,84 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
 
+        Scanner sc = new Scanner(System.in);
         StudentManager manager = new StudentManager();
 
-        Course java = new Course("Java Programming");
-        Course db = new Course("Database Systems");
+        int choice;
 
-        manager.addCourse(java);
-        manager.addCourse(db);
+        do {
+            System.out.println("\n1. Add Student");
+            System.out.println("2. Add Teacher");
+            System.out.println("3. Add Course");
+            System.out.println("4. Request Course");
+            System.out.println("5. Assign Marks");
+            System.out.println("6. View Students");
+            System.out.println("0. Exit");
+            System.out.print("Choose: ");
 
-        // ✅ VALID STUDENT
-        try {
-            Student s1 = new Student("John", 20, 1);
-            manager.addPerson(s1);
+            choice = sc.nextInt();
+            sc.nextLine();
 
-            manager.enroll(s1, java);
-            manager.enroll(s1, db);
+            switch (choice) {
 
-        } catch (RuntimeException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+                case 1:
+                    System.out.print("Name: ");
+                    String sn = sc.nextLine();
+                    System.out.print("Age: ");
+                    int sa = sc.nextInt();
+                    System.out.print("ID: ");
+                    int sid = sc.nextInt();
 
-        // ❌ INVALID STUDENT (NEGATIVE ID)
-        try {
-            Student s2 = new Student("Alice", 22, -5); // ❌ error
-            manager.addPerson(s2);
+                    manager.addStudent(new Student(sn, sa, sid));
+                    break;
 
-        } catch (RuntimeException e) {
-            System.out.println("INVALID ID ERROR: " + e.getMessage());
-        }
+                case 2:
+                    System.out.print("Name: ");
+                    String tn = sc.nextLine();
+                    System.out.print("Age: ");
+                    int ta = sc.nextInt();
+                    sc.nextLine();
+                    System.out.print("Subject: ");
+                    String sub = sc.nextLine();
 
-        System.out.println("\n--- PEOPLE ---");
-        manager.viewPeople();
+                    manager.addTeacher(new Teacher(tn, ta, sub));
+                    break;
 
-        manager.viewCourses();
-        manager.viewEnrollments();
+                case 3:
+                    System.out.print("Course Name: ");
+                    String cn = sc.nextLine();
+
+                    manager.addCourse(new Course(cn));
+                    break;
+
+                case 4:
+                    System.out.print("Student ID: ");
+                    int rid = sc.nextInt();
+                    sc.nextLine();
+                    System.out.print("Course Name: ");
+                    String rc = sc.nextLine();
+
+                    manager.requestCourse(rid, rc);
+                    break;
+
+                case 5:
+                    System.out.print("Student ID: ");
+                    int mid = sc.nextInt();
+                    System.out.print("Marks: ");
+                    double m = sc.nextDouble();
+
+                    manager.assignMarks(mid, m);
+                    break;
+
+                case 6:
+                    manager.viewStudents();
+                    break;
+            }
+
+        } while (choice != 0);
+
+        sc.close();
     }
 }
